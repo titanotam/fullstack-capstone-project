@@ -8,23 +8,22 @@ function MainPage() {
 
     useEffect(() => {
         // Task 1: Write async fetch operation
+        const fetchGifts = async () => {
+            try {
+                let url = `${urlConfig.backendUrl}/api/gifts`
+                const response = await fetch(url);
+                if (!response.ok) {
+                    //something went wrong
+                    throw new Error(`HTTP error; ${response.status}`)
+                }
+                const data = await response.json();
+                setGifts(data);
+            } catch (error) {
+                console.log('Fetch error: ' + error.message);
+            }
+        };
         fetchGifts();
     }, []);
-
-    const fetchGifts = async () => {
-        try {
-            let url = `${urlConfig.backendUrl}/api/gifts`
-            const response = await fetch(url);
-            if (!response.ok) {
-                //something went wrong
-                throw new Error(`HTTP error; ${response.status}`)
-            }
-            const data = await response.json();
-            setGifts(data);
-        } catch (error) {
-            console.log('Fetch error: ' + error.message);
-        }
-    };
 
     // Task 2: Navigate to details page
     const goToDetailsPage = (productId) => {
@@ -73,7 +72,6 @@ function MainPage() {
                                 {/* // Task 6: Display gift image or placeholder */}
                                 {/* // Write your code below this line */}
                                 <p className="card-text">{formatDate(gift.date_added)}</p>
-
                                 
 
                                 <button onClick={() => goToDetailsPage(gift.id)} className="btn btn-primary">
