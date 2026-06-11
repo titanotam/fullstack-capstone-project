@@ -50,8 +50,8 @@ app.use((err, req, res, next) => {
     res.status(500).send('Internal Server Error');
 });
 
-app.get("/",(req,res)=>{
-    res.send("Inside the server")
+app.get("/",(req,res) => {
+    res.send("Inside the server");
 })
 
 app.listen(port, () => {
